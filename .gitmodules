@@ -1,3 +1,0 @@
-[submodule "puppetmaster-training"]
-	path = puppetmaster-training
-	url = git@github.com:puppetlabs/puppetmaster-training.git
