@@ -1,15 +1,16 @@
 class SlideKit
   require 'fileutils'
   require 'yaml'
-  def initialize project, out='output', conf='conf', src='src'
-    @project = project 
+  def initialize project, subproject, out='output', conf='conf', src='src'
+    @project = project
+    @subproject = subproject
     @conf = conf
     @src = src
-    @out = out 
-    @yaml = "#{@conf}/#{@project}.yaml"  
-    @info = "#{@conf}/#{@project}.info"  
-    @textile = "#{@out}/#{@project}.textile"  
-    @slides = "src/slides"
+    @out = out
+    @yaml = "#{@conf}/#{@subproject}.yaml"
+    @info = "#{@conf}/#{@project}.info"
+    @textile = "#{@out}/#{subproject}.textile"
+    @slides = "src/slides/#{@subproject}"
   end
 
   def parse()
@@ -36,7 +37,7 @@ class SlideKit
     FileUtils.mkdir_p(@out)
     f = File.open(@textile, 'w')
     f.print File.read(@info)
-    files.each do |element| 
+    files.each do |element|
       if element[:section]
         f.print "\nh1. #{element[:section]}\n"
       else
@@ -52,9 +53,9 @@ class SlideKit
     f.close
   end
 
-  def build() 
+  def build()
    files = self.parse()
    self.compile(files)
-  end 
+  end
 
 end
